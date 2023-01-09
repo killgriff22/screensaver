@@ -1,0 +1,463 @@
+import subprocess
+import platform
+import os
+from sys import argv, stdout
+from termcolor import colored
+import themeloader
+theme = themeloader.themeloader.gettheme("@-fancy")
+colors = theme.colorset
+my_system = platform
+logo = f"""{theme.logo}"""
+topline = ""
+logosplt = logo.splitlines()
+counter = 0
+maxlinelen = 0
+NN = f"Node Name: {my_system.node()}"
+AR = f"Arch : {my_system.machine()}"
+OSR = f"OS Release : {my_system.release()}"
+CPU = f"CPU : {platform.processor()}"
+SYS = f"System : {my_system.system()}"
+def center(txt):
+    center = ""
+    for x in range(int(((int(len(topline))-2)-int(len(txt)))/2)):
+center += " "
+if len(txt) % 2 == 0:
+    return center + txt + " " + center
+return center + txt + center
+def filler():
+    fill = ""
+for x in range(len(topline)-2):
+fill += " "
+return fill
+def vcenter():
+    center = ""
+    if len(logosplt) > len(infosplt):
+buffer = int((len(logosplt)-len(infosplt))/2)
+    for i in range(buffer):
+        center += " "
+        return center
+class themeloader:
+    def gettheme(theme):
+        class theme:
+    logo = open(
+        f"{os.environ['ZSH']}/@themes/{theme}/{theme}.logo").read()
+        colorset = open(
+    f"{os.environ['ZSH']}/@themes/{theme}/{theme}.colorset").readlines())
+        for line in colorset:
+    colorset[colorset.index(line)] = line.strip("\n")
+    return theme
+try:
+    import random, colorama
+except:
+    import os
+    os.system("python3 -m pip install colorama")
+    os.system("clear")
+import os
+os.system("clear")
+money = 10
+moneylist=[10]
+infobar=str()
+import sys
+def print_there(x, y, text):
+     sys.stdout.write("\x1b7\x1b[%d;%df%s\x1b8" % (x, y, text))
+     sys.stdout.flush()
+def moneyaction(type,sub=0,add=0):
+    global money
+    if type == "double":
+        money=money*2
+    elif type == "triple":
+        money=money*3
+    elif type == "half":
+        money=int(money/2)
+    elif type == "all":
+        money=1
+    elif type == "sub":
+        money = money-sub
+    elif type == "add":
+        money=money+add
+    return None
+investments=[
+
+
+fate = [
+profits = [
+turnlocation = turnlocs[turn]
+turninvest=str()
+turnfate=int()
+turnprofits=[","]
+turncost=["/"]
+invests=["."]
+def invoke_table(table):
+    result=None
+    if table == "Land Speculation":
+        result=random.choice(tables[0][1:6])
+    elif table == "Random Area":
+        result=random.choice(tables[1][1:6])
+    return result
+def land_speculation():
+    global money
+    result = invoke_table("Land Speculation")
+    if len(result) == 3:
+        result[1](result[2])
+    return money
+def invoke_fate():
+    row = random.randint(0,5)
+    col = random.randint(0,5)
+    return fate[row][col]
+def apply_fate():
+    global infobar,turnfate
+    result = invoke_fate()
+    if result[0] == "A":
+infobar = "Slave Revolt: Affects Southern Tidewater only.\nAll investments in platations are lost for this turn only."
+if turnlocation == "Southern Tidewater":
+    if turninvest == "platations with slave labor":
+        turnfate = -20
+        moneyaction("sub",sub=-20)
+return None
+    elif result[0] == "B":
+areaaffect=invoke_table("Random Area")
+infobar=f"Insects destroy crops!: {areaaffect}\n{areaaffect} loses all investment on agriculture"
+if turnlocation == areaaffect:
+    for invest in investments[0]:
+        if turninvest in invest:
+            turnfate = -invest[1]
+return None
+    elif result[0] == "C":
+        areaaffect=invoke_table("Random Area")
+infobar=f"Storms and Hurricanes!: {areaaffect}\n{areaaffect} reduces profits by -4 (cannot go lower than cost)"
+if turnlocation == areaaffect:
+    if turncost < 4 and turncost > 1:
+        turnfate = -4+turncost
+    elif turncost >= 4:
+        turnfate = -4
+        return None
+    elif result[0] == "D":
+        infobar = "Cold weather/frost: affects New england and middle colonies only\nAll agriculture profits lose two (-2)"
+        if turnlocation == "New England" or turnlocation == "Middle Colonies":
+            turnfate = -2
+        return None
+    elif result[0] == "E":
+        
+        return None
+    elif result[0] == "F":
+        return None
+    elif result[0] == "G":
+        return None
+    elif result[0] == "H":
+        return None
+    elif result[0] == "I":
+        return None
+    elif result[0] == "J":
+        return None
+    elif result[0] == "K":
+        return None
+    elif result[0] == "L":
+        return None
+    elif result[0] == "M":
+        return None
+    elif result[0] == "N":
+        return None
+    elif result[0] == "O":
+        return None
+    elif result[0] == "P":
+        return None
+def trygetindex(list1, index):
+    try:
+        return str(list1[index])
+    except IndexError:
+        if list1 == invests:
+            return "                                             "
+        elif list1 == moneylist:
+            return "       "
+        elif list1 == turncost:
+            return "   "
+        elif list1 == turnprofits:
+            return "   "
+def add_profit(profit):
+    spaces = "".zfill(len("   ")-len(str(profit)))
+    profit = str(profit)
+    turnprofits.append(spaces+profit)
+def add_cost(cost):
+    spaces = "".zfill(len("   ")-len(str(cost)) )
+    cost = str(cost)
+    turncost.append(spaces+cost)
+    yesflag=False
+    print("\n\n\n")
+    for i in range(turn):
+        print("\n",end="")
+    print("                                    ",end="")
+    print_there(0,0,screen)
+    while not yesflag:
+        ans=input()
+        for investcat in investments:
+for invest,cost in investcat[1:]:
+    if ans in invest:
+        add_invest(ans)
+        moneyaction("sub",cost)
+        add_cost(cost)
+        yesflag=True
+        break
+    for region in profits:
+        if region[0] == turnlocation:
+            copy = region[1:]
+            for invest,profit in copy:
+                if invest == ans:
+        moneyaction("add",profit)
+        add_profit(profit)
+        break
+    moneylist.append(money)
+    turn+=1
+running = True
+while running:
+    try:
+        invoke_turn()
+        if turn > 15:
+            running=False
+    except KeyboardInterrupt:
+        import os
+        os.system("clear")
+        exit()
+import time
+import random
+with open("samples.txt","r") as f:
+    samples = f.readlines()
+while True:
+    sample = random.choice(samples)
+    for letter in sample:
+        time.sleep(0.1)
+        print(letter,end="",flush=True)
+    time.sleep(0.3)
+    import random
+
+def generate_list(size, magnitude):
+    """Generate a list of random integers between 0 and the given magnitude."""
+    return [int(random.random() * magnitude) for _ in range(size)]
+
+def generate_guess(original, index, weight):
+    """Generate a new guess for the element at the given index by adding or subtracting a random integer between 1 and the given weight."""
+    upordown = int(random.random() * 2)
+    if upordown == 0:
+        return original[index] - random.randint(1, weight)
+    else:
+        return original[index] + random.randint(1, weight)
+
+def check_answers(original, guesses):
+    """Compare the elements in the original and guesses lists and return a list of indices where the elements do not match."""
+    return [i for i in range(len(original)) if original[i] != guesses[i]]
+
+def find_match(original, weight):
+    """Generate new guesses for the elements in the original list until all guesses match the original values."""
+    guesses = generate_list(len(original), len(original))
+    wrong_indices = check_answers(original, guesses)
+    while wrong_indices:
+        for index in wrong_indices:
+            guesses[index] = generate_guess(original, index, weight)
+        wrong_indices = check_answers(original, guesses)
+    return guesses
+
+# Set the size and magnitude of the list
+size = 200
+magnitude = 100
+
+# Generate the list of random integers
+original = generate_list(size, magnitude)
+
+# Find a matching list using the find_match function
+match = find_match(original, 20)
+
+# Print the original and matching lists
+print(f"Original list: {original}")
+print(f"Matching list: {match}")
+import pygame
+import random
+from time import sleep
+from player import player as playerplate
+from enemy import enemyAI
+WIDTH = 500
+HEIGHT = 500
+FPS = 30
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+pygame.init()
+pygame.mixer.init()
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("hide n seek")
+clock = pygame.time.Clock()     ## For syncing the FP
+playerpos=(13,14)
+map[playerpos[1]][playerpos[0]] = 2
+player = playerplate(playerpos[0],playerpos[1])
+enemypos=(10,10)
+map[enemypos[1]][enemypos[0]]=3
+enemyPlayer = enemyAI(enemypos[0],enemypos[1])
+running = True
+frames=0
+while running:
+    sleep(0.3)
+    frames+=1
+    if frames>60:
+        frames = 1
+    #1 Process input/events
+    clock.tick(FPS)     ## will make the loop run at the same speed all the time
+    for event in pygame.event.get():        # gets all the events which have occured till now and keeps tab of them.
+        ## listening for the the X button at the top
+        if event.type == pygame.QUIT:
+            running = False
+        elif event.type == pygame.KEYDOWN:
+            if event.key in [pygame.K_UP,pygame.K_w]:
+                map=player.move(event.key,map)
+            elif event.key in [pygame.K_DOWN,pygame.K_s]:
+                map=player.move(event.key,map)
+            elif event.key in [pygame.K_LEFT,pygame.K_a]:
+                map=player.move(event.key,map)
+            elif event.key in [pygame.K_RIGHT,pygame.K_d]:
+                map=player.move(event.key,map)
+    map = enemyPlayer.pathfind_to((player.player_x,player.player_y),map,frames)
+    #print(enemyPlayer.enemy_x,enemyPlayer.enemy_y,enemyPlayer.attempts)
+    xpos=None
+    ypos=None
+    flag=False
+    screen.fill(BLACK)
+    for y in range(50):
+        for x in range(50):
+            if map[y][x] == 1:
+                pygame.draw.rect(screen,(100,100,100),(x*10,y*10,10,10))
+            elif map[y][x] == 2:
+                pygame.draw.rect(screen,(0,0,255),(x*10,y*10,10,10))
+            elif map[y][x] == 3:
+                pygame.draw.rect(screen,(255,0,0),(x*10,y*10,10,10))
+
+    #print(f"frame #{frames} enemyx_move?{frames%enemyPlayer.x_threshold == 0}, enemyy_move?{frames%enemyPlayer.y_threshold == 0}")
+    pygame.display.flip()       
+
+pygame.quit()
+import random,pygame
+class enemyAI:
+    def __init__(self,enemy_x,enemy_y):
+        self.enemy_x = enemy_x
+        self.enemy_y = enemy_y
+        self.x_threshold = 30
+        self.y_threshold = 60
+        self.attempts_before_random = 1
+        self.attempts=0
+    def update(self,map):
+        map[self.enemy_y][self.enemy_x] = 0
+        movedirection = int(random.random()*4//1)
+        if movedirection == 0:
+            try:map[self.enemy_y-1][self.enemy_x]
+            except:return map
+            if map[self.enemy_y-1][self.enemy_x] == 1:
+                map[self.enemy_y][self.enemy_x] = 3
+                return map
+            map[self.enemy_y-1][self.enemy_x] = 3
+            self.enemy_y-=1
+        elif movedirection == 1:
+            try:map[self.enemy_y+1][self.enemy_x]
+            except:return map
+            if map[self.enemy_y+1][self.enemy_x] == 1:
+                map[self.enemy_y][self.enemy_x] = 3
+                return map
+            map[self.enemy_y+1][self.enemy_x] = 3
+            self.enemy_y+=1
+        elif movedirection == 2:
+            try:map[self.enemy_y][self.enemy_x-1]
+            except:return map
+            if map[self.enemy_y][self.enemy_x-1] == 1:
+                map[self.enemy_y][self.enemy_x] = 3
+                return map
+            map[self.enemy_y][self.enemy_x-1] = 3
+            self.enemy_x -= 1
+        elif movedirection == 3:
+            try:map[self.enemy_y][self.enemy_x+1]
+            except:return map
+            if map[self.enemy_y][self.enemy_x+1] == 1:
+                map[self.enemy_y][self.enemy_x] = 3
+                return map
+            map[self.enemy_y][self.enemy_x+1] = 3
+            self.enemy_x += 1
+        return map
+    def pathfind_to(self,location:pygame.rect,map,frame,override=False):
+        if self.attempts >= self.attempts_before_random:
+            self.attempts = 0
+            return self.update(map)
+        old=(self.enemy_x,self.enemy_y)
+        map[self.enemy_y][self.enemy_x] = 0
+        x1,y1 = self.enemy_x,self.enemy_y
+        x2,y2 = location
+        if frame%self.x_threshold:
+            if x1<x2:
+                self.enemy_x+=1
+            elif x2<x1:
+                self.enemy_x-=1
+        if frame%self.y_threshold or self.attempts == self.attempts_before_random:
+            if y1<y2:
+                self.enemy_y+=1
+            elif y2<y1:
+                self.enemy_y-=1
+        if map[self.enemy_y][self.enemy_x] == 1:
+            new = (self.enemy_x,self.enemy_y)
+            self.enemy_x,self.enemy_y=old
+            if (new[0] > old[0] and old[1]==new[1]) or (new[0] < old[0] and old[1]==new[1]):
+                for y in range(50):
+                    if not map[y][self.enemy_x]:
+                       if y>self.enemy_y:
+                           self.enemy_y+=1
+                           break 
+                       elif y<self.enemy_y:
+                           self.enemy_y-=1
+                           break
+            elif (new[1]>old[1] and new[0]==old[0]) or (new[1]<old[1] and new[0]==old[0]):
+                for x in range(50):
+                    if not map[self.enemy_y][x]:
+                       if x>self.enemy_x:
+                           self.enemy_x+=1
+                           break 
+                       elif x<self.enemy_x:
+                           self.enemy_x-=1
+                           break
+        map[self.enemy_y][self.enemy_x] = 3
+        new = (self.enemy_x,self.enemy_y)
+        if new == old and not new == location:
+            self.attempts += 1
+        return map
+    import heapq
+
+def pathfind_to_coordinate(self, x, y, map):
+    # Create a set to store the visited nodes
+    visited = set()
+
+    # Create a priority queue to store the nodes to be explored,
+    # with the priority determined by the A* heuristic
+    queue = []
+    heapq.heappush(queue, (0, (self.enemy_x, self.enemy_y)))
+
+    # Create a dictionary to store the previous node for each node
+    prev = {}
+
+    # While the queue is not empty
+    while queue:
+        # Pop the node with the lowest heuristic value from the queue
+        _, current = heapq.heappop(queue)
+
+        # If the current node is the target coordinate, reconstruct the path
+        if current == (x, y):
+            path = []
+            while current in prev:
+                path.append(current)
+                current = prev[current]
+            return path[::-1]
+
+        # Mark the current node as visited
+        visited.add(current)
+
+        # Add the unvisited neighboring nodes to the queue
+        for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+            next_x, next_y = current[0] + dx, current[1] + dy
+            if (next_x, next_y) not in visited and map[next_y][next_x] != 1:
+                prev[(next_x, next_y)] = current
+                heapq.heappush(queue, (abs(x - next_x) + abs(y - next_y), (next_x, next_y)))
+
+    # If no path was found, return an empty list
+    return []
